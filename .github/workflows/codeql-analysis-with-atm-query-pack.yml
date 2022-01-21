@@ -38,7 +38,7 @@ jobs:
         with:
           languages: javascript
           queries: security-extended
-          packs: codeql/javascript-experimental-atm-queries@0.0.5-revert-code-to-features-removal
+          packs: codeql/javascript-experimental-atm-queries@0.0.2
           tools: latest
           debug: true
 
