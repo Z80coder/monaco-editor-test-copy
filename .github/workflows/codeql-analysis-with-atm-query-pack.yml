@@ -1,0 +1,48 @@
+name: "CodeQL Analysis with ATM"
+
+on: [push, pull_request]
+  
+env:
+  CODEQL_ACTION_EXTRA_OPTIONS: >-
+    {
+      "database": {
+        "run-queries": [
+          "--insecurely-load-models-from-packs"
+        ]
+      }
+    }
+
+jobs:
+  CodeQL-Build:
+    # CodeQL runs on ubuntu-latest, windows-latest, and macos-latest
+    runs-on: ubuntu-latest
+
+    permissions:
+      # required for all workflows
+      security-events: write
+
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        # use ATM
+        uses: github/codeql-action/init@81dfe32077c877c6ff55d02612c7932022f95234
+        # don't use ATM
+        # uses: github/codeql-action/init@v1
+        with:
+          languages: javascript
+          queries: security-extended
+          tools: latest
+          debug: true
+
+      - name: Perform CodeQL Analysis
+        #  use ATM
+        uses: github/codeql-action/analyze@81dfe32077c877c6ff55d02612c7932022f95234
+        # don't use ATM
+        # uses: github/codeql-action/analyze@v1  
